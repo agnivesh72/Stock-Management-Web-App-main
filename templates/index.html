@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Finance
+{% endblock %}
+
+{% block main %}
+    <div>
+        <h2>User Account</h2>
+        <table class="section">
+            <thead>
+                <tr>
+                    <th>Grand Total</th>
+                    <th>Cash</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ grandtotal | usd }}</td>
+                    <td>{{ cash | usd }}</td>
+                    <td>
+                        <form action="/addcash" method="get">
+                            <input name="name" type="hidden" value="{{ name[0].username }}">
+                            <button class="btn btn-primary" type="submit">Add Cash</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <h2 class="sechead">Owned</h2>
+        <table class="section">
+            <thead>
+                <tr>
+                    <th>Stock Symbol</th>
+                    <th>Shares</th>
+                    <th>Current Price</th>
+                    <th>Total Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for dat in data %}
+                    <tr>
+                        <td>{{ dat.symbol }}</td>
+                        <td>{{ dat.shares }}</td>
+                        <td>{{ dat.currentprice | usd }}</td>
+                        <td>{{ dat.totalvalue | usd }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
